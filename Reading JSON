@@ -1,0 +1,30 @@
+<script runat="server">
+  Platform.Load("Core", "1.1.1");
+  var json_ = Attribute.GetValue('recommendation');
+  var jsonObj = Platform.Function.ParseJSON(json_);
+  var jsonLength = jsonObj.routines.length;
+  var daycounter = 0;
+  var nightcounter = 0;
+  for (var i = 0; i < jsonLength; i++) {
+    var stepLength = jsonObj.routines[i].steps.length;
+    for (var j = 0; j < stepLength; j++) {
+      var productLength = jsonObj.routines[i].steps[j].products.length;
+      //Write(productLength);
+      for (var K = 0; K < productLength; K++) {
+        var sku = jsonObj.routines[i].steps[j].products[K].details.sku;
+        var name = jsonObj.routines[i].steps[j].products[K].details.name;
+        var packshotImageUrl = jsonObj.routines[i].steps[j].products[K].details.packshotImageUrl;
+        var pdpUrl = jsonObj.routines[i].steps[j].products[K].details.pdpUrl;
+        var shortDescription = jsonObj.routines[i].steps[j].products[K].details.shortDescription;
+                  Platform.Variable.SetValue("@daysku1_" + daycounter, sku);
+          Platform.Variable.SetValue("@dayname1_" + daycounter, name);
+          Platform.Variable.SetValue("@ImageUrl1_" + daycounter, packshotImageUrl);
+          Platform.Variable.SetValue("@pdpUrl1_" + daycounter, pdpUrl);
+          Platform.Variable.SetValue("@shortDescription1_" + daycounter, shortDescription);
+          daycounter++;
+        
+        
+      }
+    }
+  }
+</script> 
