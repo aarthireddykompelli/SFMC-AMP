@@ -29,3 +29,4 @@ ELSE
  ENDIF
 ENDIF
 ]%%
+%%=v(@promo_code)=%%
