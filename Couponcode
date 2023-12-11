@@ -1,0 +1,31 @@
+/* Start: PROMO CODE Script */  
+set @campaign_unique_code = "xyz"  
+/* START: DO NOT MODIFY SCRIPT EXCEPT DE NAME */    
+set @EmailAddress = [EmailAddress]  
+set @pDate = Format(Now(),"MM/dd/yyyy") 
+set @extradate = DateAdd(@pDate,"30","D")
+set @expiry_dt = Format(@extradate,"MM/dd/yyyy")
+
+IF _messagecontext == 'PREVIEW' THEN 
+    set @promo_code = "PREVIEW_Coupon_TEST"
+    set @promo_expire = "PREVIEW_Expiration_Date_TEST"
+ELSE
+    SET @coupon_row = LookupOrderedRows("DE_PromoCodes", 0, "expiry_dt asc", "EmailAddress", @EmailAddress, "campaign_unique_code", @campaign_unique_code)
+    SET @rowCount = RowCount(@coupon_row)
+    IF @rowCount > 0 THEN
+ for @i = 1 to @rowCount do 
+  set @row1 = row(@coupon_row, @i) 
+                set @promo_code = field(@row1, "coupon_id") 
+                set @promo_expire = field(@row1, "expiry_dt") 
+                next @i                  
+ ELSE
+  set @Coupon_Claim1 = ClaimRow("DE_PromoCodes", "is_claimed", "EmailAddress", @EmailAddress, "expiry_dt", @expiry_dt,"campaign_unique_code", @campaign_unique_code)
+ IF empty(@Coupon_Claim1) then 
+  RaiseError("Out of coupon_id")
+ ELSE
+  SET @promo_code = FIELD(@Coupon_Claim1,"coupon_id")
+  SET @promo_expire = FIELD(@Coupon_Claim1,"expiry_dt")
+ ENDIF   
+ ENDIF
+ENDIF
+]%%
