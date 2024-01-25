@@ -1,0 +1,4 @@
+%%[/* SENDLOG */ var @unique_id, @touch, @channel, @segment_name, @creative_version_id, @sub_brand set @split = BuildRowsetFromString(emailname_, '_') set @unique_id = Field(Row(@split,1), 1) set @brand_code = Field(Row(@split,2), 1) set @country = Field(Row(@split,3), 1) set @touch = Field(Row(@split,5), 1) set @channel = 'em' if rowcount(LookupRows("ENT.Campaign_Metadata", 'campaign_unique_code', @unique_id, 'brand', @brand_code)) > 0 then set @lookup = Row(LookupRows("ENT.Campaign_Metadata", 'campaign_unique_code', @unique_id, 'brand', @brand_code), 1) set @sub_brand = Field(@lookup, "featured_brand")
+
+set @campaign_type = Field(@lookup, "campaign_type")
+else RaiseError('Campaign not in the CNT',false) endif ]%%
