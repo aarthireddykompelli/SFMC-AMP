@@ -1,0 +1,2 @@
+ROWCOUNT(LOOKUPROWS("Exclusion_DATA_EXTENSION_NAME","EMAIL_ADDR_FIELD_NAME", EMAILADDR))>0
+Knowledge article - https://help.salesforce.com/s/articleView?id=000384149&type=1
