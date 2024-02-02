@@ -1,0 +1,3 @@
+set @tracking =concat('utm_email=',SHA256(emailaddr),'&utm_medium=email_brand&utm_source=SFMC&utm_campaign=CAMPAIGN_NAME&utm_content=')
+
+Link : https://LINK.COM?%%=v(@tracking)=%%hero-img
